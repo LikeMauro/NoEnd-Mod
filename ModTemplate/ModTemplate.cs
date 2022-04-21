@@ -1,9 +1,10 @@
 ﻿using OWML.Common;
 using OWML.ModHelper;
+using UnityEngine.InputSystem;
 
-namespace ModTemplate
+namespace NoEnd
 {
-    public class ModTemplate : ModBehaviour
+    public class NoEnd : ModBehaviour
     {
         private void Awake()
         {
@@ -12,19 +13,10 @@ namespace ModTemplate
             // Use Start() instead.
         }
 
-        private void Start()
+        private void Update()
         {
-            // Starting here, you'll have access to OWML's mod helper.
-            ModHelper.Console.WriteLine($"My mod {nameof(ModTemplate)} is loaded!", MessageType.Success);
+            
 
-            // Example of accessing game code.
-            LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
-            {
-                if (loadScene != OWScene.SolarSystem) return;
-                var playerBody = FindObjectOfType<PlayerBody>();
-                ModHelper.Console.WriteLine($"Found player body, and it's called {playerBody.name}!",
-                    MessageType.Success);
-            };
         }
     }
 }
