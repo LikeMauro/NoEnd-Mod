@@ -15,8 +15,28 @@ namespace NoEnd
 
         private void Update()
         {
-            
+            ModHelper.Console.WriteLine($"hi");
 
+            if (Keyboard.current.numpad1Key.wasPressedThisFrame)
+            {
+                FindObjectOfType<DeathManager>().BeginEscapedTimeLoopSequence(TimeloopEscapeType.Ship);
+            }
+            if (Keyboard.current.numpad2Key.wasPressedThisFrame)
+            {
+                FindObjectOfType<DeathManager>().BeginEscapedTimeLoopSequence(TimeloopEscapeType.Quantum);
+            }
+            if (Keyboard.current.numpad3Key.wasPressedThisFrame)
+            {
+                FindObjectOfType<DeathManager>().BeginEscapedTimeLoopSequence(TimeloopEscapeType.Ringworld);
+            }
+            if (Keyboard.current.numpad4Key.wasPressedThisFrame)
+            {
+                FindObjectOfType<DeathManager>().BeginEscapedTimeLoopSequence(TimeloopEscapeType.Dreamworld);
+            }
+            if (Keyboard.current.numpad5Key.wasPressedThisFrame)
+            {
+                FindObjectOfType<DeathManager>().KillPlayer(deathType: DeathType.BigBang);
+            }
         }
     }
 }
