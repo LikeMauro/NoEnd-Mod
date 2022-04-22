@@ -20,6 +20,7 @@ namespace NoEnd
             ModHelper.Console.WriteLine($"Mod loaded!");
 
             ModHelper.HarmonyHelper.AddPrefix<DeathManager>("KillPlayer", typeof(NoEnd), nameof(NoEnd.NoTimeLoopEnd));
+            ModHelper.HarmonyHelper.AddPrefix<DeathManager>("BeginEscapedTimeLoopSequence", typeof(NoEnd), nameof(NoEnd.NoEscapeSequence));
         }
         
         private void Update()
@@ -34,6 +35,11 @@ namespace NoEnd
         private static bool NoTimeLoopEnd(DeathType __0)
         {
             return __0 != DeathType.TimeLoop;
+        }
+
+        private static bool NoEscapeSequence()
+        {
+            return false;
         }
     }
 }
