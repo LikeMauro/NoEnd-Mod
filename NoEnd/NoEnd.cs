@@ -1,6 +1,8 @@
 ﻿using OWML.Common;
 using OWML.ModHelper;
+using UnityEngine;
 using UnityEngine.InputSystem;
+
 
 namespace NoEnd
 {
@@ -13,30 +15,25 @@ namespace NoEnd
             // Use Start() instead.
         }
 
+        private void Start()
+        {
+            ModHelper.Console.WriteLine($"Mod loaded!");
+
+            ModHelper.HarmonyHelper.AddPrefix<DeathManager>("KillPlayer", typeof(NoEnd), nameof(NoEnd.NoTimeLoopEnd));
+        }
+        
         private void Update()
         {
-            ModHelper.Console.WriteLine($"hi");
+            if (Keyboard.current.pKey.wasPressedThisFrame)
+            {
+                TimeLoop.SetTimeLoopEnabled(false);
+            }
 
-            if (Keyboard.current.numpad1Key.wasPressedThisFrame)
-            {
-                FindObjectOfType<DeathManager>().BeginEscapedTimeLoopSequence(TimeloopEscapeType.Ship);
-            }
-            if (Keyboard.current.numpad2Key.wasPressedThisFrame)
-            {
-                FindObjectOfType<DeathManager>().BeginEscapedTimeLoopSequence(TimeloopEscapeType.Quantum);
-            }
-            if (Keyboard.current.numpad3Key.wasPressedThisFrame)
-            {
-                FindObjectOfType<DeathManager>().BeginEscapedTimeLoopSequence(TimeloopEscapeType.Ringworld);
-            }
-            if (Keyboard.current.numpad4Key.wasPressedThisFrame)
-            {
-                FindObjectOfType<DeathManager>().BeginEscapedTimeLoopSequence(TimeloopEscapeType.Dreamworld);
-            }
-            if (Keyboard.current.numpad5Key.wasPressedThisFrame)
-            {
-                FindObjectOfType<DeathManager>().KillPlayer(deathType: DeathType.BigBang);
-            }
+        }
+
+        private static bool NoTimeLoopEnd(DeathType __0)
+        {
+            return __0 != DeathType.TimeLoop;
         }
     }
 }
